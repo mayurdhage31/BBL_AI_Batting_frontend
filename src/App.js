@@ -8,7 +8,7 @@ import SummaryMetrics from './components/SummaryMetrics';
 import PerformanceTable from './components/PerformanceTable';
 import PitchMap from './components/PitchMap';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_URL = 'https://bblaibattingbackend-bbl.up.railway.app';
 
 function App() {
   const [activeTab, setActiveTab] = useState('Batter'); // 'Batter' or 'Venue'
