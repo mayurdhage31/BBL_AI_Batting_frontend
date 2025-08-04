@@ -29,7 +29,6 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
             backgroundImage: "url('/pitch_transparent.png')",
             backgroundSize: 'contain',
             backgroundPosition: 'center',
-            transform: 'rotate(90deg)',
             width: '180px',
             margin: '0 auto',
             position: 'absolute',
