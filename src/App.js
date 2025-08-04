@@ -109,7 +109,7 @@ function App() {
                 </div>
                 
                 <div className="bg-brand-light-dark p-6 rounded-lg shadow-lg">
-                    <h3 className="text-xl font-semibold mb-4 border-b-2 border-brand-teal pb-2">Performance vs Different Lengths</h3>
+                    <h3 className="text-xl font-semibold mb-4 border-b-2 border-brand-teal pb-2">Pitch Image vs Different Length</h3>
                     <PerformanceTable columns={lengthColumns} data={insights.performance_vs_length} />
                     <PitchMap data={insights.performance_vs_length} dataKey="Length" valueKey="Strike Rate" />
                 </div>

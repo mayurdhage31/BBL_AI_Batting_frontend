@@ -1,46 +1,69 @@
 import React from 'react';
-import { ResponsiveContainer, ScatterChart, XAxis, YAxis, ZAxis, Scatter, LabelList } from 'recharts';
 
-// Define fixed positions for lines and lengths on the pitch map
-const positionMapping = {
-    // For Line Data
-    'On Stumps': { x: 150, y: 100 },
-    'Wide Outside Off': { x: 250, y: 100 },
-    '4th/5th Stump': { x: 200, y: 100 },
-    'On Leg Stump': { x: 100, y: 100 },
-    // For Length Data
-    'Full Toss': { x: 175, y: 150 },
-    'Short': { x: 175, y: 50 },
-    'Full Length': { x: 175, y: 130 },
-    'Bouncer': { x: 175, y: 30 },
-    'Good Length': { x: 175, y: 90 },
-    'Yorker': { x: 175, y: 170 },
-  };
+// Define positions for bowling lengths in left-to-right order
+// Fulltoss, Yorker, Full Length, Good Length, Short, Bouncer
+const lengthPositions = {
+    'Full Toss': { x: 60, y: 120, order: 1 },
+    'Yorker': { x: 120, y: 120, order: 2 },
+    'Full Length': { x: 180, y: 120, order: 3 },
+    'Good Length': { x: 240, y: 120, order: 4 },
+    'Short': { x: 300, y: 120, order: 5 },
+    'Bouncer': { x: 360, y: 120, order: 6 },
+};
 
 
 const PitchMap = ({ data, dataKey, valueKey }) => {
-
-    const chartData = data.map(item => ({
-        ...positionMapping[item[dataKey]],
-        label: item[dataKey],
-        value: item[valueKey]
-    }));
+  // Sort data by the predefined order and filter only available lengths
+  const sortedData = data
+    .filter(item => lengthPositions[item[dataKey]])
+    .sort((a, b) => lengthPositions[a[dataKey]].order - lengthPositions[b[dataKey]].order);
 
   return (
-    <div style={{ width: '100%', height: 300, position: 'relative' }} className="mt-6">
-       {/* You can overlay a pitch image here using CSS background-image */}
-      <div className="absolute inset-0 bg-no-repeat bg-center bg-contain" style={{backgroundImage: "url('/pitch_transparent.png')"}}></div>
-      <ResponsiveContainer>
-        <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-          <XAxis type="number" dataKey="x" hide domain={[0, 350]} />
-          <YAxis type="number" dataKey="y" hide domain={[0, 200]} reversed/>
-          <ZAxis type="number" dataKey="value" range={[400, 1000]}/>
-          <Scatter data={chartData} fill="#00f0a8">
-             <LabelList dataKey="value" position="top" fill="white" fontSize={14} fontWeight="bold" formatter={(val) => val.toFixed(2)}/>
-             <LabelList dataKey="label" position="bottom" fill="white" fontSize={12}/>
-          </Scatter>
-        </ScatterChart>
-      </ResponsiveContainer>
+    <div className="mt-6">
+      {/* Cricket pitch background with length indicators */}
+      <div 
+        className="relative w-full h-64 bg-no-repeat bg-center bg-contain rounded-lg overflow-hidden"
+        style={{
+          backgroundImage: "url('/pitch_transparent.png')",
+          backgroundSize: 'contain',
+          backgroundPosition: 'center'
+        }}
+      >
+        {/* Length indicators positioned left to right */}
+        <div className="absolute inset-0 flex items-center justify-around px-4">
+          {sortedData.map((item, index) => {
+            const lengthName = item[dataKey];
+            const value = item[valueKey];
+            
+            return (
+              <div 
+                key={lengthName}
+                className="flex flex-col items-center"
+                style={{
+                  minWidth: '60px'
+                }}
+              >
+                {/* Length label */}
+                <div className="bg-gray-800 bg-opacity-80 text-white px-2 py-1 rounded text-xs font-medium mb-1 text-center">
+                  {lengthName}
+                </div>
+                
+                {/* Value display */}
+                <div className="bg-brand-teal text-black px-3 py-2 rounded-lg font-bold text-sm shadow-lg">
+                  {typeof value === 'number' ? value.toFixed(2) : value}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      
+      {/* Legend */}
+      <div className="mt-4 text-center">
+        <p className="text-sm text-gray-400">
+          {valueKey}: Lower values indicate better economy rates
+        </p>
+      </div>
     </div>
   );
 };
