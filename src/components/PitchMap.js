@@ -1,78 +1,77 @@
 import React from 'react';
 
-// Define positions for bowling lengths in left-to-right order
-// Fulltoss, Yorker, Full Length, Good Length, Short, Bouncer
-const lengthPositions = {
-    'Full Toss': { x: 60, y: 120, order: 1 },
-    'Yorker': { x: 120, y: 120, order: 2 },
-    'Full Length': { x: 180, y: 120, order: 3 },
-    'Good Length': { x: 240, y: 120, order: 4 },
-    'Short': { x: 300, y: 120, order: 5 },
-    'Bouncer': { x: 360, y: 120, order: 6 },
-};
-
-
 const PitchMap = ({ data, dataKey, valueKey }) => {
+  // Define the order for bowling lengths
+  const lengthOrder = ['Full Toss', 'Yorker', 'Full Length', 'Good Length', 'Short', 'Bouncer'];
+  
   // Sort data by the predefined order and filter only available lengths
-  const sortedData = data
-    .filter(item => lengthPositions[item[dataKey]])
-    .sort((a, b) => lengthPositions[a[dataKey]].order - lengthPositions[b[dataKey]].order);
+  const sortedData = lengthOrder
+    .map(length => data.find(item => item[dataKey] === length))
+    .filter(item => item !== undefined);
 
   return (
     <div className="mt-6">
-      {/* Main container with horizontal pitch layout */}
-      <div className="relative w-full bg-brand-dark rounded-lg overflow-hidden py-8">
-        {/* Cricket pitch background - horizontal orientation */}
-        <div 
-          className="relative mx-auto h-48 bg-no-repeat bg-center"
-          style={{
-            backgroundImage: "url('/pitch_transparent.png')",
-            backgroundSize: 'contain',
-            backgroundPosition: 'center',
-            width: '180px',
-            margin: '0 auto',
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%) rotate(90deg)',
-            zIndex: 1
-          }}
-        ></div>
+      {/* Cricket pitch visualization */}
+      <div className="relative w-full max-w-4xl mx-auto">
+        {/* Pitch sections container */}
+        <div className="flex h-24 rounded-lg overflow-hidden border-2 border-gray-600">
+          {sortedData.map((item, index) => {
+            const lengthName = item[dataKey];
+            
+            return (
+              <div 
+                key={lengthName}
+                className="flex-1 relative flex flex-col justify-center items-center text-white font-bold"
+                style={{
+                  backgroundColor: '#4ade80', // Consistent green color for cricket pitch
+                  borderRight: index < sortedData.length - 1 ? '2px solid #374151' : 'none'
+                }}
+              >
+                {/* Length name - rotated vertically */}
+                <div 
+                  className="text-sm font-bold text-center leading-tight"
+                  style={{
+                    transform: 'rotate(-90deg)',
+                    whiteSpace: 'nowrap',
+                    color: '#1f2937'
+                  }}
+                >
+                  {lengthName.replace(' ', '\n')}
+                </div>
+              </div>
+            );
+          })}
+        </div>
         
-        {/* Length indicators positioned horizontally */}
-        <div className="relative z-10 flex justify-around items-center px-4 h-full">
+        {/* Values displayed above the pitch */}
+        <div className="flex mt-2">
           {sortedData.map((item, index) => {
             const lengthName = item[dataKey];
             const value = item[valueKey];
             
             return (
               <div 
-                key={lengthName}
-                className="flex flex-col items-center"
-                style={{
-                  minWidth: '60px'
-                }}
+                key={`value-${lengthName}`}
+                className="flex-1 text-center"
               >
-                {/* Length label */}
-                <div className="bg-gray-800 bg-opacity-80 text-white px-2 py-1 rounded text-xs font-medium mb-2 text-center">
-                  {lengthName}
-                </div>
-                
-                {/* Value display */}
-                <div className="bg-brand-teal text-black px-3 py-2 rounded-lg font-bold text-sm shadow-lg">
+                <div className="text-lg font-bold text-white">
                   {typeof value === 'number' ? value.toFixed(2) : value}
                 </div>
               </div>
             );
           })}
         </div>
-      </div>
-      
-      {/* Legend */}
-      <div className="mt-4 text-center">
-        <p className="text-sm text-gray-400">
-          Strike Rate: Lower values indicate better economy rates
-        </p>
+        
+        {/* Small cricket pitch diagram on the right */}
+        <div className="absolute right-0 top-0 w-20 h-24 border-2 border-gray-400 bg-green-400 rounded">
+          {/* Wickets */}
+          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-1 h-4 bg-gray-800 rounded"></div>
+          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-1 h-4 bg-gray-800 rounded"></div>
+          {/* Pitch lines */}
+          <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-white transform -translate-y-1/2"></div>
+          <div className="absolute top-1/4 left-0 right-0 h-0.5 bg-white"></div>
+          <div className="absolute bottom-1/4 left-0 right-0 h-0.5 bg-white"></div>
+        </div>
       </div>
     </div>
   );

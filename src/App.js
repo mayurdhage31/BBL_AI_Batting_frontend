@@ -7,6 +7,7 @@ import Weaknesses from './components/Weaknesses';
 import SummaryMetrics from './components/SummaryMetrics';
 import PerformanceTable from './components/PerformanceTable';
 import PitchMap from './components/PitchMap';
+import VenueRankings from './components/VenueRankings';
 
 const API_URL = 'https://bblaibattingbackend-bbl.up.railway.app';
 
@@ -107,6 +108,11 @@ function App() {
                     <PerformanceTable columns={lineColumns} data={insights.performance_vs_line} />
                     <PitchMap data={insights.performance_vs_line} dataKey="Line" valueKey="Strike Rate" />
                 </div>
+                
+                {/* Venue Rankings - only show for venue analysis */}
+                {activeTab === 'Venue' && (
+                  <VenueRankings selectedVenue={selectedVenue} />
+                )}
                 
                 <div className="bg-brand-light-dark p-6 rounded-lg shadow-lg">
                     <h3 className="text-xl font-semibold mb-4 border-b-2 border-brand-teal pb-2">Pitch Image vs Different Length</h3>
