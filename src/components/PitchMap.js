@@ -20,17 +20,28 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
 
   return (
     <div className="mt-6">
-      {/* Cricket pitch background with length indicators */}
-      <div 
-        className="relative w-full h-64 bg-no-repeat bg-center bg-contain rounded-lg overflow-hidden"
-        style={{
-          backgroundImage: "url('/pitch_transparent.png')",
-          backgroundSize: 'contain',
-          backgroundPosition: 'center'
-        }}
-      >
-        {/* Length indicators positioned left to right */}
-        <div className="absolute inset-0 flex items-center justify-around px-4">
+      {/* Main container with horizontal pitch layout */}
+      <div className="relative w-full bg-brand-dark rounded-lg overflow-hidden py-8">
+        {/* Cricket pitch background - horizontal orientation */}
+        <div 
+          className="relative mx-auto h-48 bg-no-repeat bg-center"
+          style={{
+            backgroundImage: "url('/pitch_transparent.png')",
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            transform: 'rotate(90deg)',
+            width: '180px',
+            margin: '0 auto',
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            transform: 'translate(-50%, -50%) rotate(90deg)',
+            zIndex: 1
+          }}
+        ></div>
+        
+        {/* Length indicators positioned horizontally */}
+        <div className="relative z-10 flex justify-around items-center px-4 h-full">
           {sortedData.map((item, index) => {
             const lengthName = item[dataKey];
             const value = item[valueKey];
@@ -44,7 +55,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
                 }}
               >
                 {/* Length label */}
-                <div className="bg-gray-800 bg-opacity-80 text-white px-2 py-1 rounded text-xs font-medium mb-1 text-center">
+                <div className="bg-gray-800 bg-opacity-80 text-white px-2 py-1 rounded text-xs font-medium mb-2 text-center">
                   {lengthName}
                 </div>
                 
@@ -61,7 +72,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
       {/* Legend */}
       <div className="mt-4 text-center">
         <p className="text-sm text-gray-400">
-          {valueKey}: Lower values indicate better economy rates
+          Strike Rate: Lower values indicate better economy rates
         </p>
       </div>
     </div>
