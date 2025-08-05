@@ -15,13 +15,18 @@ const VenueRankings = ({ selectedVenue }) => {
     
     setLoading(true);
     console.log('Fetching venue rankings for:', selectedVenue);
+    console.log('API URL:', API_URL);
+    console.log('Full URL:', `${API_URL}/venue-length-stats/${selectedVenue}`);
     try {
       // Fetch venue length stats data
       const response = await axios.get(`${API_URL}/venue-length-stats/${selectedVenue}`);
       console.log('Venue rankings response:', response.data);
+      console.log('Response status:', response.status);
       setVenueRankings(response.data);
     } catch (error) {
       console.error('Error fetching venue rankings for', selectedVenue, ':', error);
+      console.error('Error details:', error.response?.data);
+      console.error('Error status:', error.response?.status);
       setVenueRankings([]);
     } finally {
       setLoading(false);
