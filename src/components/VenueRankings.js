@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://bblaibattingbackend-bbl.up.railway.app';
+const API_URL = process.env.NODE_ENV === 'development' ? '' : 'https://bblaibattingbackend-bbl.up.railway.app';
 
 const VenueRankings = ({ selectedVenue }) => {
   const [venueRankings, setVenueRankings] = useState([]);
