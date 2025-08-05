@@ -13,8 +13,26 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
     <div className="mt-6">
       {/* Cricket pitch visualization */}
       <div className="relative w-full max-w-4xl mx-auto">
+        {/* Stumps at the start of the pitch (before Full Toss) */}
+        <div className="absolute left-0 top-0 z-10 flex flex-col items-center justify-center h-24 w-6">
+          <div className="flex space-x-0.5">
+            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
+            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
+            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
+          </div>
+        </div>
+        
+        {/* Stumps at the end of the pitch (after Bouncer) */}
+        <div className="absolute right-0 top-0 z-10 flex flex-col items-center justify-center h-24 w-6">
+          <div className="flex space-x-0.5">
+            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
+            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
+            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
+          </div>
+        </div>
+        
         {/* Pitch sections container */}
-        <div className="flex h-24 rounded-lg overflow-hidden border-2 border-gray-600">
+        <div className="flex h-24 rounded-lg overflow-hidden border-2 border-gray-600 mx-6">
           {sortedData.map((item, index) => {
             const lengthName = item[dataKey];
             
@@ -29,14 +47,15 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
               >
                 {/* Length name - rotated vertically */}
                 <div 
-                  className="text-sm font-bold text-center leading-tight"
+                  className="text-xs font-bold text-center leading-tight px-1"
                   style={{
                     transform: 'rotate(-90deg)',
                     whiteSpace: 'nowrap',
-                    color: '#ffffff'
+                    color: '#ffffff',
+                    textShadow: '1px 1px 2px rgba(0,0,0,0.8)'
                   }}
                 >
-                  {lengthName.replace(' ', '\n')}
+                  {lengthName}
                 </div>
               </div>
             );
@@ -44,7 +63,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
         </div>
         
         {/* Values displayed above the pitch */}
-        <div className="flex mt-2">
+        <div className="flex mt-2 mx-6">
           {sortedData.map((item, index) => {
             const lengthName = item[dataKey];
             const value = item[valueKey];
@@ -62,24 +81,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
           })}
         </div>
         
-        {/* Small cricket pitch diagram on the right */}
-        <div className="absolute right-0 top-0 w-20 h-24 border-2 border-gray-400 rounded" style={{ backgroundColor: '#8B4513' }}>
-          {/* Stumps at both ends */}
-          <div className="absolute top-1 left-1/2 transform -translate-x-1/2 flex space-x-0.5">
-            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
-            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
-            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
-          </div>
-          <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex space-x-0.5">
-            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
-            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
-            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
-          </div>
-          {/* Pitch lines */}
-          <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-white transform -translate-y-1/2"></div>
-          <div className="absolute top-1/4 left-0 right-0 h-0.5 bg-white"></div>
-          <div className="absolute bottom-1/4 left-0 right-0 h-0.5 bg-white"></div>
-        </div>
+
       </div>
     </div>
   );
