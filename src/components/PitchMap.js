@@ -63,10 +63,18 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
         </div>
         
         {/* Small cricket pitch diagram on the right */}
-        <div className="absolute right-0 top-0 w-20 h-24 border-2 border-gray-400 bg-green-400 rounded">
-          {/* Wickets */}
-          <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-1 h-4 bg-gray-800 rounded"></div>
-          <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-1 h-4 bg-gray-800 rounded"></div>
+        <div className="absolute right-0 top-0 w-20 h-24 border-2 border-gray-400 rounded" style={{ backgroundColor: '#8B4513' }}>
+          {/* Stumps at both ends */}
+          <div className="absolute top-1 left-1/2 transform -translate-x-1/2 flex space-x-0.5">
+            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
+            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
+            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
+          </div>
+          <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 flex space-x-0.5">
+            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
+            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
+            <div className="w-0.5 h-3 bg-yellow-200 rounded-sm"></div>
+          </div>
           {/* Pitch lines */}
           <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-white transform -translate-y-1/2"></div>
           <div className="absolute top-1/4 left-0 right-0 h-0.5 bg-white"></div>
