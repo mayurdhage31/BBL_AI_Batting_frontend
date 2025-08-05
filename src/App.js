@@ -9,7 +9,7 @@ import PerformanceTable from './components/PerformanceTable';
 import PitchMap from './components/PitchMap';
 import VenueRankings from './components/VenueRankings';
 
-const API_URL = 'https://bblaibattingbackend-bbl.up.railway.app';
+const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://bblaibattingbackend-bbl.up.railway.app';
 
 function App() {
   const [activeTab, setActiveTab] = useState('Batter'); // 'Batter' or 'Venue'
