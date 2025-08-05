@@ -13,75 +13,91 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
     <div className="mt-6">
       {/* Cricket pitch visualization */}
       <div className="relative w-full max-w-4xl mx-auto">
-        {/* Stumps at the start of the pitch (before Full Toss) */}
-        <div className="absolute left-0 top-0 z-10 flex flex-col items-center justify-center h-24 w-6">
-          <div className="flex space-x-0.5">
-            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
-            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
-            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
+        {/* Stumps at the start of the pitch (bowler's end) - rotated 90 degrees */}
+        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 flex items-center justify-center h-6 w-8">
+          <div className="flex flex-col space-y-0.5">
+            <div className="h-1 w-6 bg-yellow-200 rounded-sm"></div>
+            <div className="h-1 w-6 bg-yellow-200 rounded-sm"></div>
+            <div className="h-1 w-6 bg-yellow-200 rounded-sm"></div>
           </div>
         </div>
         
-        {/* Stumps at the end of the pitch (after Bouncer) */}
-        <div className="absolute right-0 top-0 z-10 flex flex-col items-center justify-center h-24 w-6">
-          <div className="flex space-x-0.5">
-            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
-            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
-            <div className="w-1 h-6 bg-yellow-200 rounded-sm"></div>
+        {/* Stumps at the end of the pitch (batsman's end) - rotated 90 degrees */}
+        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 flex items-center justify-center h-6 w-8">
+          <div className="flex flex-col space-y-0.5">
+            <div className="h-1 w-6 bg-yellow-200 rounded-sm"></div>
+            <div className="h-1 w-6 bg-yellow-200 rounded-sm"></div>
+            <div className="h-1 w-6 bg-yellow-200 rounded-sm"></div>
           </div>
         </div>
         
-        {/* Pitch sections container */}
-        <div className="flex h-24 rounded-lg overflow-hidden border-2 border-gray-600 mx-6">
-          {sortedData.map((item, index) => {
-            const lengthName = item[dataKey];
-            
-            return (
-              <div 
-                key={lengthName}
-                className="flex-1 relative flex flex-col justify-center items-center text-white font-bold"
-                style={{
-                  backgroundColor: '#8B4513', // Brown color to resemble cricket pitch
-                  borderRight: index < sortedData.length - 1 ? '2px solid #374151' : 'none'
-                }}
-              >
-                {/* Length name - rotated vertically */}
+        {/* Full pitch container */}
+        <div className="flex h-24 rounded-lg overflow-hidden border-2 border-gray-600 mx-8" style={{ backgroundColor: '#8B4513' }}>
+          {/* Empty area on the left (non-striker's end) */}
+          <div className="flex-1" style={{ backgroundColor: '#8B4513' }}></div>
+          
+          {/* Compressed length zones container - takes up about 60% of the pitch */}
+          <div className="flex" style={{ width: '60%' }}>
+            {sortedData.map((item, index) => {
+              const lengthName = item[dataKey];
+              
+              return (
                 <div 
-                  className="text-xs font-bold text-center leading-tight px-1"
+                  key={lengthName}
+                  className="flex-1 relative flex flex-col justify-center items-center text-white font-bold"
                   style={{
-                    transform: 'rotate(-90deg)',
-                    whiteSpace: 'nowrap',
-                    color: '#ffffff',
-                    textShadow: '1px 1px 2px rgba(0,0,0,0.8)'
+                    backgroundColor: '#8B4513', // Brown color to resemble cricket pitch
+                    borderRight: index < sortedData.length - 1 ? '2px solid #374151' : 'none'
                   }}
                 >
-                  {lengthName}
+                  {/* Length name - rotated vertically */}
+                  <div 
+                    className="text-xs font-bold text-center leading-tight px-1"
+                    style={{
+                      transform: 'rotate(-90deg)',
+                      whiteSpace: 'nowrap',
+                      color: '#ffffff',
+                      textShadow: '1px 1px 2px rgba(0,0,0,0.8)'
+                    }}
+                  >
+                    {lengthName}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+          
+          {/* Empty area on the right (striker's end) */}
+          <div className="flex-1" style={{ backgroundColor: '#8B4513' }}></div>
         </div>
         
-        {/* Values displayed above the pitch */}
-        <div className="flex mt-2 mx-6">
-          {sortedData.map((item, index) => {
-            const lengthName = item[dataKey];
-            const value = item[valueKey];
-            
-            return (
-              <div 
-                key={`value-${lengthName}`}
-                className="flex-1 text-center"
-              >
-                <div className="text-lg font-bold text-white">
-                  {typeof value === 'number' ? value.toFixed(2) : value}
+        {/* Values displayed above the pitch - aligned with compressed zones */}
+        <div className="flex mt-2 mx-8">
+          {/* Empty space for left area */}
+          <div className="flex-1"></div>
+          
+          {/* Values for compressed zones */}
+          <div className="flex" style={{ width: '60%' }}>
+            {sortedData.map((item, index) => {
+              const lengthName = item[dataKey];
+              const value = item[valueKey];
+              
+              return (
+                <div 
+                  key={`value-${lengthName}`}
+                  className="flex-1 text-center"
+                >
+                  <div className="text-lg font-bold text-white">
+                    {typeof value === 'number' ? value.toFixed(2) : value}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+          
+          {/* Empty space for right area */}
+          <div className="flex-1"></div>
         </div>
-        
-
       </div>
     </div>
   );

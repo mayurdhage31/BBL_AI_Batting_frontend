@@ -7,6 +7,7 @@ import Weaknesses from './components/Weaknesses';
 import SummaryMetrics from './components/SummaryMetrics';
 import PerformanceTable from './components/PerformanceTable';
 import PitchMap from './components/PitchMap';
+import PitchLineMap from './components/PitchLineMap';
 import VenueRankings from './components/VenueRankings';
 
 const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : 'https://bblaibattingbackend-bbl.up.railway.app';
@@ -18,6 +19,7 @@ function App() {
   const [selectedBatter, setSelectedBatter] = useState('');
   const [selectedVenue, setSelectedVenue] = useState('');
   const [insights, setInsights] = useState(null);
+  const [lineStats, setLineStats] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -29,13 +31,25 @@ function App() {
   const handleGenerateInsights = () => {
     if (activeTab === 'Batter' && selectedBatter) {
       setLoading(true);
-      axios.get(`${API_URL}/batter-insight/${selectedBatter}`)
-        .then(res => setInsights(res.data))
+      Promise.all([
+        axios.get(`${API_URL}/batter-insight/${selectedBatter}`),
+        axios.get(`${API_URL}/batter-line-stats/${selectedBatter}`)
+      ])
+        .then(([insightsRes, lineStatsRes]) => {
+          setInsights(insightsRes.data);
+          setLineStats(lineStatsRes.data);
+        })
         .finally(() => setLoading(false));
     } else if (activeTab === 'Venue' && selectedVenue) {
         setLoading(true);
-        axios.get(`${API_URL}/venue-insight/${selectedVenue}`)
-          .then(res => setInsights(res.data))
+        Promise.all([
+          axios.get(`${API_URL}/venue-insight/${selectedVenue}`),
+          axios.get(`${API_URL}/venue-line-stats/${selectedVenue}`)
+        ])
+          .then(([insightsRes, lineStatsRes]) => {
+            setInsights(insightsRes.data);
+            setLineStats(lineStatsRes.data);
+          })
           .finally(() => setLoading(false));
     }
   };
@@ -106,10 +120,12 @@ function App() {
                 <div className="bg-brand-light-dark p-6 rounded-lg shadow-lg">
                     <h3 className="text-xl font-semibold mb-4 border-b-2 border-brand-teal pb-2">Performance vs Different Lines</h3>
                     <PerformanceTable columns={lineColumns} data={insights.performance_vs_line} />
-                    <div className="mt-6">
-                      <h4 className="text-lg font-semibold mb-3 text-brand-teal">Pitch Image for Strike Rate By Line</h4>
-                      <PitchMap data={insights.performance_vs_line} dataKey="Line" valueKey="Strike Rate" />
-                    </div>
+                    {lineStats && (
+                      <div className="mt-6">
+                        <h4 className="text-lg font-semibold mb-3 text-brand-teal">Pitch Image for Strike Rate By Line</h4>
+                        <PitchLineMap data={lineStats} dataKey="Line" valueKey="Strike Rate" />
+                      </div>
+                    )}
                 </div>
                 
                 <div className="bg-brand-light-dark p-6 rounded-lg shadow-lg">
