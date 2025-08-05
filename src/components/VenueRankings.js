@@ -15,16 +15,8 @@ const VenueRankings = ({ selectedVenue }) => {
       setVenueRankings(response.data);
     } catch (error) {
       console.error('Error fetching venue rankings:', error);
-      // Fallback: create mock data structure if API doesn't exist yet
-      const mockData = [
-        { Length: 'Full Toss', Rank_Batting_Strike_Rate: 3, Rank_Boundary_Percentage: 3, Rank_Dot_Ball_Percentage: 4 },
-        { Length: 'Yorker', Rank_Batting_Strike_Rate: 6, Rank_Boundary_Percentage: 6, Rank_Dot_Ball_Percentage: 5 },
-        { Length: 'Full Length', Rank_Batting_Strike_Rate: 1, Rank_Boundary_Percentage: 1, Rank_Dot_Ball_Percentage: 1 },
-        { Length: 'Good Length', Rank_Batting_Strike_Rate: 2, Rank_Boundary_Percentage: 2, Rank_Dot_Ball_Percentage: 6 },
-        { Length: 'Short', Rank_Batting_Strike_Rate: 5, Rank_Boundary_Percentage: 5, Rank_Dot_Ball_Percentage: 2 },
-        { Length: 'Bouncer', Rank_Batting_Strike_Rate: 4, Rank_Boundary_Percentage: 4, Rank_Dot_Ball_Percentage: 3 }
-      ];
-      setVenueRankings(mockData);
+      console.error('Error fetching venue rankings for', selectedVenue, ':', error);
+      setVenueRankings([]);
     } finally {
       setLoading(false);
     }
@@ -51,7 +43,7 @@ const VenueRankings = ({ selectedVenue }) => {
   return (
     <div className="bg-brand-light-dark p-6 rounded-lg shadow-lg">
       <h3 className="text-xl font-semibold mb-4 border-b-2 border-brand-teal pb-2">
-        Ranks of Performance vs Different Lines
+        Ranks of Performance vs Different Lengths
       </h3>
       
       <div className="overflow-x-auto">

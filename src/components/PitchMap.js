@@ -23,7 +23,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
                 key={lengthName}
                 className="flex-1 relative flex flex-col justify-center items-center text-white font-bold"
                 style={{
-                  backgroundColor: '#4ade80', // Consistent green color for cricket pitch
+                  backgroundColor: '#8B4513', // Brown color to resemble cricket pitch
                   borderRight: index < sortedData.length - 1 ? '2px solid #374151' : 'none'
                 }}
               >
@@ -33,7 +33,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
                   style={{
                     transform: 'rotate(-90deg)',
                     whiteSpace: 'nowrap',
-                    color: '#1f2937'
+                    color: '#ffffff'
                   }}
                 >
                   {lengthName.replace(' ', '\n')}
