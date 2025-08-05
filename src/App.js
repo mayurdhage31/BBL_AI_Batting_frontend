@@ -31,24 +31,46 @@ function App() {
   const handleGenerateInsights = () => {
     if (activeTab === 'Batter' && selectedBatter) {
       setLoading(true);
-      Promise.all([
-        axios.get(`${API_URL}/batter-insight/${selectedBatter}`),
-        axios.get(`${API_URL}/batter-line-stats/${selectedBatter}`)
-      ])
-        .then(([insightsRes, lineStatsRes]) => {
+      // Get batter insights
+      axios.get(`${API_URL}/batter-insight/${selectedBatter}`)
+        .then(insightsRes => {
           setInsights(insightsRes.data);
-          setLineStats(lineStatsRes.data);
+          
+          // Try to get line stats, but handle 404 errors gracefully
+          axios.get(`${API_URL}/batter-line-stats/${selectedBatter}`)
+            .then(lineStatsRes => {
+              setLineStats(lineStatsRes.data);
+            })
+            .catch(error => {
+              console.warn('Line stats endpoint not available:', error);
+              setLineStats([]); // Set empty array as fallback
+            });
+        })
+        .catch(error => {
+          console.error('Error fetching batter insights:', error);
+          alert('Error fetching batter insights. Please try again.');
         })
         .finally(() => setLoading(false));
     } else if (activeTab === 'Venue' && selectedVenue) {
         setLoading(true);
-        Promise.all([
-          axios.get(`${API_URL}/venue-insight/${selectedVenue}`),
-          axios.get(`${API_URL}/venue-line-stats/${selectedVenue}`)
-        ])
-          .then(([insightsRes, lineStatsRes]) => {
+        // Get venue insights
+        axios.get(`${API_URL}/venue-insight/${selectedVenue}`)
+          .then(insightsRes => {
             setInsights(insightsRes.data);
-            setLineStats(lineStatsRes.data);
+            
+            // Try to get line stats, but handle 404 errors gracefully
+            axios.get(`${API_URL}/venue-line-stats/${selectedVenue}`)
+              .then(lineStatsRes => {
+                setLineStats(lineStatsRes.data);
+              })
+              .catch(error => {
+                console.warn('Venue line stats endpoint not available:', error);
+                setLineStats([]); // Set empty array as fallback
+              });
+          })
+          .catch(error => {
+            console.error('Error fetching venue insights:', error);
+            alert('Error fetching venue insights. Please try again.');
           })
           .finally(() => setLoading(false));
     }

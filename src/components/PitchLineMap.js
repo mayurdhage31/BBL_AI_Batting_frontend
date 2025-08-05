@@ -6,9 +6,18 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
   // Define the order for bowling lines (from left to right on pitch)
   const lineOrder = ['Wide Outside Off', '4th/5th Stump', 'On Stumps', 'On Leg Stump'];
   
+  // Handle case where data is undefined or empty
+  if (!data || data.length === 0) {
+    return (
+      <div className="mt-6 p-4 bg-gray-100 rounded-lg text-center">
+        <p className="text-gray-600">Line statistics data is not available.</p>
+      </div>
+    );
+  }
+  
   // Sort data by the predefined order and filter only available lines
   const sortedData = lineOrder
-    .map(line => data.find(item => item[dataKey] === line))
+    .map(line => data.find(item => item && item[dataKey] === line))
     .filter(item => item !== undefined);
 
   // Function to get color based on strike rate
