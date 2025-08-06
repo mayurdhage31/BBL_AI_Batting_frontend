@@ -38,7 +38,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
       {/* Cricket pitch visualization */}
       <div className="relative w-full max-w-4xl mx-auto">
         {/* Main pitch container with brown background */}
-        <div className="relative h-32 rounded-lg border-2 border-gray-600 mx-8" style={{ backgroundColor: '#8B4513' }}>
+        <div className="relative h-32 rounded-lg border-2 border-gray-600 mx-8" style={{ backgroundColor: '#D2B48C' }}>
           
           {/* Larger stumps at the start of the pitch (bowler's end) - centered */}
           <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20">
@@ -114,8 +114,8 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
           </div>
         </div>
         
-        {/* Values displayed above the pitch - aligned with the compressed boxes */}
-        <div className="flex mt-2 mx-8">
+        {/* Values displayed below the pitch - aligned with the compressed boxes */}
+        <div className="flex mx-8">
           {/* Left spacing to align with pitch lines */}
           <div style={{ width: '48px' }}></div>
           
@@ -132,7 +132,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
                   className="flex-1 text-center"
                 >
                   <div 
-                    className="text-lg font-bold"
+                    className="text-sm font-bold mt-1"
                     style={{
                       color: isStrikeRate ? getStrikeRateColor(value) : '#ffffff'
                     }}
