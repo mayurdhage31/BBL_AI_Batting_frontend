@@ -29,7 +29,7 @@ const PerformanceTable = ({ columns, data }) => {
                 return (
                   <td key={colIndex} className="py-2 px-3">
                     {typeof value === 'number' ? 
-                      (column === 'Balls' || column === 'Runs') ? 
+                      (column === 'Balls' || column === 'Runs' || column === 'Total Runs' || column === 'Balls Faced') ? 
                         Math.round(value).toString() : 
                         value.toFixed(2) 
                       : value || 'N/A'}

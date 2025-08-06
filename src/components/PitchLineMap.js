@@ -20,18 +20,15 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
     .map(line => data.find(item => item && item[dataKey] === line))
     .filter(item => item !== undefined);
 
-  // Function to get color based on strike rate
+  // Function to get color based on strike rate - simplified to green/yellow/red
   const getColorByStrikeRate = (strikeRate) => {
     if (!strikeRate || strikeRate === 0) return '#4B5563'; // Gray for no data
     
-    // Color scale based on strike rate ranges
-    if (strikeRate >= 150) return '#DC2626'; // Red - Very High
-    if (strikeRate >= 130) return '#EA580C'; // Orange-Red - High
-    if (strikeRate >= 120) return '#F59E0B'; // Orange - Above Average
-    if (strikeRate >= 110) return '#EAB308'; // Yellow - Good
-    if (strikeRate >= 100) return '#84CC16'; // Light Green - Average
-    if (strikeRate >= 90) return '#22C55E'; // Green - Below Average
-    return '#059669'; // Dark Green - Low
+    // Simplified color scale
+    const numValue = parseFloat(strikeRate);
+    if (numValue >= 130) return '#22c55e'; // Green - High performance
+    if (numValue >= 110) return '#eab308'; // Yellow - Medium performance
+    return '#dc2626'; // Red - Low performance
   };
 
   // Function to format values - remove decimals for Total Runs and Balls Faced
@@ -118,34 +115,18 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
           </div>
           
           {/* Legend */}
-          <div className="mt-4 flex flex-wrap justify-center gap-2 text-sm">
+          <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm">
             <div className="flex items-center gap-1">
-              <div className="w-4 h-4 bg-red-600 rounded"></div>
-              <span className="text-white">150+ SR</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="w-4 h-4 bg-orange-600 rounded"></div>
-              <span className="text-white">130-149 SR</span>
+              <div className="w-4 h-4 bg-green-500 rounded"></div>
+              <span className="text-white">130+ SR (High)</span>
             </div>
             <div className="flex items-center gap-1">
               <div className="w-4 h-4 bg-yellow-500 rounded"></div>
-              <span className="text-white">120-129 SR</span>
+              <span className="text-white">110-129 SR (Medium)</span>
             </div>
             <div className="flex items-center gap-1">
-              <div className="w-4 h-4 bg-yellow-400 rounded"></div>
-              <span className="text-white">110-119 SR</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="w-4 h-4 bg-lime-400 rounded"></div>
-              <span className="text-white">100-109 SR</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="w-4 h-4 bg-green-500 rounded"></div>
-              <span className="text-white">90-99 SR</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="w-4 h-4 bg-green-700 rounded"></div>
-              <span className="text-white">&lt;90 SR</span>
+              <div className="w-4 h-4 bg-red-600 rounded"></div>
+              <span className="text-white">&lt;110 SR (Low)</span>
             </div>
           </div>
         </div>
