@@ -47,6 +47,10 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
             </div>
+            {/* Left-handed Batter label */}
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-bold text-white whitespace-nowrap">
+              Left-handed Batter
+            </div>
           </div>
           
           {/* Larger stumps at the end of the pitch (batsman's end) - centered */}
@@ -55,6 +59,10 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
+            </div>
+            {/* Left-handed Batter label */}
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-bold text-white whitespace-nowrap">
+              Left-handed Batter
             </div>
           </div>
           

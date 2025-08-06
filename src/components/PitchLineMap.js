@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const PitchLineMap = ({ data, dataKey, valueKey }) => {
+  const [hoveredLine, setHoveredLine] = useState(null);
+  
   // Define the order for bowling lines (from left to right on pitch)
   const lineOrder = ['Wide Outside Off', '4th/5th Stump', 'Middle & Off Stump', 'On Leg Stump'];
   
@@ -48,6 +50,10 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
             </div>
+            {/* Left-handed Batter label */}
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-bold text-white whitespace-nowrap">
+              Left-handed Batter
+            </div>
           </div>
           
           {/* Larger stumps at the end of the pitch (batsman's end) - centered */}
@@ -56,6 +62,10 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
+            </div>
+            {/* Left-handed Batter label */}
+            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-bold text-white whitespace-nowrap">
+              Left-handed Batter
             </div>
           </div>
           
@@ -67,33 +77,75 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
           <div className="absolute inset-x-12 inset-y-0 flex flex-col justify-center">
             
             {/* Wide Outside Off line - topmost line */}
-            <div className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10" style={{ top: '20%' }}></div>
+            <div 
+              className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10 cursor-pointer hover:opacity-100" 
+              style={{ top: '15%' }}
+              onMouseEnter={() => setHoveredLine('Wide Outside Off')}
+              onMouseLeave={() => setHoveredLine(null)}
+            ></div>
             
             {/* 4th/5th Stump line */}
-            <div className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10" style={{ top: '35%' }}></div>
+            <div 
+              className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10 cursor-pointer hover:opacity-100" 
+              style={{ top: '30%' }}
+              onMouseEnter={() => setHoveredLine('4th/5th Stump')}
+              onMouseLeave={() => setHoveredLine(null)}
+            ></div>
             
             {/* Middle & Off Stump line - center line */}
-            <div className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10" style={{ top: '50%' }}></div>
+            <div 
+              className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10 cursor-pointer hover:opacity-100" 
+              style={{ top: '45%' }}
+              onMouseEnter={() => setHoveredLine('Middle & Off Stump')}
+              onMouseLeave={() => setHoveredLine(null)}
+            ></div>
             
-            {/* On Leg Stump line - bottom line */}
-            <div className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10" style={{ top: '65%' }}></div>
+            {/* On Leg Stump line - should align with stumps */}
+            <div 
+              className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10 cursor-pointer hover:opacity-100" 
+              style={{ top: '50%' }}
+              onMouseEnter={() => setHoveredLine('On Leg Stump')}
+              onMouseLeave={() => setHoveredLine(null)}
+            ></div>
             
             {/* Line labels on the left side */}
-            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '18%' }}>Wide Off</div>
-            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '33%' }}>4th/5th</div>
-            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '48%' }}>M&O</div>
-            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '63%' }}>Leg</div>
+            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '13%' }}>Wide Off</div>
+            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '28%' }}>4th/5th</div>
+            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '43%' }}>M&O</div>
+            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '48%' }}>Leg</div>
+            
+            {/* Hover tooltip */}
+            {hoveredLine && (
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full mb-2 z-30">
+                <div className="bg-black text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap shadow-lg">
+                  <div className="font-bold">{hoveredLine}</div>
+                  {(() => {
+                    const lineData = sortedData.find(item => item[dataKey] === hoveredLine);
+                    if (lineData) {
+                      return (
+                        <div>
+                          <div>Strike Rate: {formatValue(lineData['Strike Rate'], 'Strike Rate')}</div>
+                          <div>Boundary %: {formatValue(lineData['Boundary %'], 'Boundary %')}</div>
+                          <div>Dot %: {formatValue(lineData['Dot %'], 'Dot %')}</div>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })()}
+                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black"></div>
+                </div>
+              </div>
+            )}
             
           </div>
         </div>
         
-        {/* Values displayed below the pitch - aligned with the line positions */}
+        {/* Values displayed below the pitch - showing all four lines with only strike rate */}
         <div className="flex mx-8 mt-2 justify-center relative">
           <div className="flex space-x-8">
-            {sortedData.map((item, index) => {
-              const lineName = item[dataKey];
-              const value = item[valueKey];
-              const isStrikeRate = valueKey === 'Strike Rate';
+            {lineOrder.map((lineName, index) => {
+              const lineData = sortedData.find(item => item[dataKey] === lineName);
+              const strikeRate = lineData ? lineData['Strike Rate'] : 'N/A';
               
               return (
                 <div 
@@ -106,10 +158,10 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
                   <div 
                     className="text-lg font-bold"
                     style={{
-                      color: isStrikeRate ? getStrikeRateColor(value) : '#ffffff'
+                      color: lineData ? getStrikeRateColor(strikeRate) : '#ffffff'
                     }}
                   >
-                    {formatValue(value, valueKey)}
+                    {lineData ? formatValue(strikeRate, 'Strike Rate') : 'N/A'}
                   </div>
                 </div>
               );
