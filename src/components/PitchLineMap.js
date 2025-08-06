@@ -4,7 +4,7 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
   const [hoveredZone, setHoveredZone] = useState(null);
   
   // Define the order for bowling lines (from left to right on pitch)
-  const lineOrder = ['Wide Outside Off', '4th/5th Stump', 'On Stumps', 'On Leg Stump'];
+  const lineOrder = ['Wide Outside Off', '4th/5th Stump', 'Middle & Off Stump', 'On Leg Stump'];
   
   // Handle case where data is undefined or empty
   if (!data || data.length === 0) {
