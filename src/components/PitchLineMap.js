@@ -117,10 +117,7 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '43%' }}>M&O</div>
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '56%' }}>Leg</div>
             
-            {/* Vertical Left-handed Batter label - positioned outside pitch premises */}
-            <div className="absolute -left-16 top-1/2 transform -translate-y-1/2 text-xs font-bold text-white whitespace-nowrap" style={{ transform: 'rotate(-90deg)' }}>
-              Left-handed Batter
-            </div>
+
             
             {/* Hover tooltip */}
             {hoveredLine && (
@@ -145,6 +142,11 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
               </div>
             )}
             
+          </div>
+          
+          {/* Vertical Left-handed Batter label - positioned outside pitch premises */}
+          <div className="absolute -left-16 top-1/2 transform -translate-y-1/2 text-xs font-bold text-white whitespace-nowrap" style={{ transform: 'rotate(-90deg)' }}>
+            Left-handed Batter
           </div>
         </div>
         
