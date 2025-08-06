@@ -47,10 +47,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
             </div>
-            {/* Left-handed Batter label */}
-            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-bold text-white whitespace-nowrap">
-              Left-handed Batter
-            </div>
+            {/* Removed horizontal Left-handed Batter label */}
           </div>
           
           {/* Larger stumps at the end of the pitch (batsman's end) - centered */}
@@ -60,10 +57,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
             </div>
-            {/* Left-handed Batter label */}
-            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-bold text-white whitespace-nowrap">
-              Left-handed Batter
-            </div>
+            {/* Removed horizontal Left-handed Batter label */}
           </div>
           
           {/* Pitch lines at either end */}
@@ -119,6 +113,11 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
           {/* Right 40% area with normal pitch color (no zones) */}
           <div className="absolute right-12 top-2 bottom-2" style={{ width: '40%', left: '60%' }}>
             {/* This area remains empty with just the pitch background color */}
+          </div>
+          
+          {/* Vertical Left-handed Batter label - positioned outside pitch premises */}
+          <div className="absolute -left-16 top-1/2 transform -translate-y-1/2 text-xs font-bold text-white whitespace-nowrap" style={{ transform: 'rotate(-90deg)' }}>
+            Left-handed Batter
           </div>
         </div>
         

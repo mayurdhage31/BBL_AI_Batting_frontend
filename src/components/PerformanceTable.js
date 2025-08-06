@@ -16,7 +16,7 @@ const PerformanceTable = ({ columns, data }) => {
           <tr className="border-b border-slate-600">
             {columns.map((column, index) => (
               <th key={index} className="text-left py-2 px-3 font-medium text-slate-200">
-                {column === 'On Stumps' ? 'Middle & Off Stump' : column}
+                {column === 'On Stumps' ? 'On Middle & Off' : column}
               </th>
             ))}
           </tr>

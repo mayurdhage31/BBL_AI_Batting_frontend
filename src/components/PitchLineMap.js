@@ -59,10 +59,7 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
             </div>
-            {/* Left-handed Batter label */}
-            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-bold text-white whitespace-nowrap">
-              Left-handed Batter
-            </div>
+            {/* Removed horizontal Left-handed Batter label */}
           </div>
           
           {/* Larger stumps at the end of the pitch (batsman's end) - centered */}
@@ -72,10 +69,7 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
               <div className="h-2 w-8 bg-yellow-200 rounded-sm border border-yellow-300"></div>
             </div>
-            {/* Left-handed Batter label */}
-            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-bold text-white whitespace-nowrap">
-              Left-handed Batter
-            </div>
+            {/* Removed horizontal Left-handed Batter label */}
           </div>
           
           {/* Pitch lines at either end */}
@@ -122,6 +116,11 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '28%' }}>4th/5th</div>
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '43%' }}>M&O</div>
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '56%' }}>Leg</div>
+            
+            {/* Vertical Left-handed Batter label - positioned outside pitch premises */}
+            <div className="absolute -left-16 top-1/2 transform -translate-y-1/2 text-xs font-bold text-white whitespace-nowrap" style={{ transform: 'rotate(-90deg)' }}>
+              Left-handed Batter
+            </div>
             
             {/* Hover tooltip */}
             {hoveredLine && (
