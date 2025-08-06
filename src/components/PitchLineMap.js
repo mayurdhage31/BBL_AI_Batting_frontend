@@ -34,6 +34,14 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
     return '#059669'; // Dark Green - Low
   };
 
+  // Function to format values - remove decimals for Total Runs and Balls Faced
+  const formatValue = (value, key) => {
+    if (key === 'Total Runs' || key === 'Balls Faced') {
+      return Math.round(parseFloat(value)).toString();
+    }
+    return typeof value === 'number' ? value.toFixed(2) : value;
+  };
+
   return (
     <div className="mt-6">
       {/* Cricket pitch visualization for lines */}
@@ -98,7 +106,7 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
                       <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full mb-2 z-20">
                         <div className="bg-black text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap shadow-lg">
                           <div className="font-bold">{lineName}</div>
-                          <div>Strike Rate: {typeof strikeRate === 'number' ? strikeRate.toFixed(2) : strikeRate}</div>
+                          <div>Strike Rate: {formatValue(strikeRate, valueKey)}</div>
                           <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-black"></div>
                         </div>
                       </div>

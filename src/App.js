@@ -154,15 +154,17 @@ function App() {
                     <h3 className="text-xl font-semibold mb-4 border-b-2 border-brand-teal pb-2">Pitch Image vs Different Length</h3>
                     <PerformanceTable columns={lengthColumns} data={insights.performance_vs_length} />
                     
-                    {/* Venue Rankings - only show for venue analysis */}
-                    {activeTab === 'Venue' && (
-                      <VenueRankings selectedVenue={selectedVenue} />
-                    )}
-                    
                     <div className="mt-6">
                       <h4 className="text-lg font-semibold mb-3 text-brand-teal">Pitch Image for Strike Rate By Length</h4>
                       <PitchMap data={insights.performance_vs_length} dataKey="Length" valueKey="Strike Rate" />
                     </div>
+                    
+                    {/* Venue Rankings - only show for venue analysis, positioned below pitch diagram */}
+                    {activeTab === 'Venue' && (
+                      <div className="mt-6">
+                        <VenueRankings selectedVenue={selectedVenue} />
+                      </div>
+                    )}
                 </div>
 
                 <div className="bg-brand-light-dark p-6 rounded-lg shadow-lg">

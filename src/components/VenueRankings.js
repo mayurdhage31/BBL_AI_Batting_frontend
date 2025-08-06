@@ -7,6 +7,15 @@ const VenueRankings = ({ selectedVenue }) => {
   const [venueRankings, setVenueRankings] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // Function to get color based on rank (1-4: green, 5-8: yellow, 9-11: red)
+  const getRankColor = (rank) => {
+    const numRank = parseInt(rank);
+    if (numRank >= 1 && numRank <= 4) return 'bg-green-500';
+    if (numRank >= 5 && numRank <= 8) return 'bg-yellow-500';
+    if (numRank >= 9 && numRank <= 11) return 'bg-red-500';
+    return 'bg-brand-teal'; // fallback
+  };
+
   const fetchVenueRankings = useCallback(async () => {
     if (!selectedVenue) {
       setVenueRankings([]);
@@ -49,7 +58,7 @@ const VenueRankings = ({ selectedVenue }) => {
 
   if (!venueRankings.length) {
     return (
-      <div className="bg-brand-light-dark p-6 rounded-lg shadow-lg">
+      <div>
         <h3 className="text-xl font-semibold mb-4 border-b-2 border-brand-teal pb-2">
           Ranks of Performance vs Different Lengths
         </h3>
@@ -61,7 +70,7 @@ const VenueRankings = ({ selectedVenue }) => {
   }
 
   return (
-    <div className="bg-brand-light-dark p-6 rounded-lg shadow-lg">
+    <div>
       <h3 className="text-xl font-semibold mb-4 border-b-2 border-brand-teal pb-2">
         Ranks of Performance vs Different Lengths
       </h3>
@@ -81,17 +90,17 @@ const VenueRankings = ({ selectedVenue }) => {
               <tr key={item.Length} className={index % 2 === 0 ? 'bg-slate-800/30' : 'bg-transparent'}>
                 <td className="py-3 px-4 font-medium text-white">{item.Length}</td>
                 <td className="py-3 px-4 text-center">
-                  <span className="inline-flex items-center justify-center w-16 h-8 bg-brand-teal text-brand-dark font-bold rounded">
+                  <span className={`inline-flex items-center justify-center w-16 h-8 text-white font-bold rounded ${getRankColor(item.Rank_Batting_Strike_Rate)}`}>
                     {item.Rank_Batting_Strike_Rate}/11
                   </span>
                 </td>
                 <td className="py-3 px-4 text-center">
-                  <span className="inline-flex items-center justify-center w-16 h-8 bg-brand-teal text-brand-dark font-bold rounded">
+                  <span className={`inline-flex items-center justify-center w-16 h-8 text-white font-bold rounded ${getRankColor(item.Rank_Boundary_Percentage)}`}>
                     {item.Rank_Boundary_Percentage}/11
                   </span>
                 </td>
                 <td className="py-3 px-4 text-center">
-                  <span className="inline-flex items-center justify-center w-16 h-8 bg-brand-teal text-brand-dark font-bold rounded">
+                  <span className={`inline-flex items-center justify-center w-16 h-8 text-white font-bold rounded ${getRankColor(item.Rank_Dot_Ball_Percentage)}`}>
                     {item.Rank_Dot_Ball_Percentage}/11
                   </span>
                 </td>

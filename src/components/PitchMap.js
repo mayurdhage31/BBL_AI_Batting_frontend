@@ -9,6 +9,26 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
     .map(length => data.find(item => item[dataKey] === length))
     .filter(item => item !== undefined);
 
+  // Function to get color based on strike rate
+  const getStrikeRateColor = (value) => {
+    const numValue = parseFloat(value);
+    if (numValue >= 150) return '#dc2626'; // Red
+    if (numValue >= 130) return '#ea580c'; // Orange-Red
+    if (numValue >= 120) return '#f97316'; // Orange
+    if (numValue >= 110) return '#eab308'; // Yellow
+    if (numValue >= 100) return '#84cc16'; // Light Green
+    if (numValue >= 90) return '#22c55e'; // Green
+    return '#15803d'; // Dark Green
+  };
+
+  // Function to format values - remove decimals for Total Runs and Balls Faced
+  const formatValue = (value, key) => {
+    if (key === 'Total Runs' || key === 'Balls Faced') {
+      return Math.round(parseFloat(value)).toString();
+    }
+    return typeof value === 'number' ? value.toFixed(2) : value;
+  };
+
   return (
     <div className="mt-6">
       {/* Cricket pitch visualization */}
@@ -33,10 +53,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
         
         {/* Full pitch container */}
         <div className="flex h-24 rounded-lg overflow-hidden border-2 border-gray-600 mx-8" style={{ backgroundColor: '#8B4513' }}>
-          {/* Reduced empty area on the left (non-striker's end) */}
-          <div style={{ width: '15%', backgroundColor: '#8B4513' }}></div>
-          
-          {/* Compressed length zones container - takes up about 60% of the pitch */}
+          {/* Compressed length zones container - starts from the left (Full Toss on stumps) */}
           <div className="flex" style={{ width: '60%' }}>
             {sortedData.map((item, index) => {
               const lengthName = item[dataKey];
@@ -68,27 +85,30 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
           </div>
           
           {/* Larger empty area on the right (striker's end) */}
-          <div style={{ width: '25%', backgroundColor: '#8B4513' }}></div>
+          <div style={{ width: '40%', backgroundColor: '#8B4513' }}></div>
         </div>
         
         {/* Values displayed above the pitch - aligned with compressed zones */}
         <div className="flex mt-2 mx-8">
-          {/* Reduced empty space for left area */}
-          <div style={{ width: '15%' }}></div>
-          
-          {/* Values for compressed zones */}
+          {/* Values for compressed zones - starts from left */}
           <div className="flex" style={{ width: '60%' }}>
             {sortedData.map((item, index) => {
               const lengthName = item[dataKey];
               const value = item[valueKey];
+              const isStrikeRate = valueKey === 'Strike Rate';
               
               return (
                 <div 
                   key={`value-${lengthName}`}
                   className="flex-1 text-center"
                 >
-                  <div className="text-lg font-bold text-white">
-                    {typeof value === 'number' ? value.toFixed(2) : value}
+                  <div 
+                    className="text-lg font-bold"
+                    style={{
+                      color: isStrikeRate ? getStrikeRateColor(value) : '#ffffff'
+                    }}
+                  >
+                    {formatValue(value, valueKey)}
                   </div>
                 </div>
               );
@@ -96,7 +116,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
           </div>
           
           {/* Larger empty space for right area */}
-          <div style={{ width: '25%' }}></div>
+          <div style={{ width: '40%' }}></div>
         </div>
       </div>
     </div>
