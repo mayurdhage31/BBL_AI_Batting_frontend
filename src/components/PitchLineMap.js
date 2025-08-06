@@ -20,17 +20,6 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
     .map(line => data.find(item => item && item[dataKey] === line))
     .filter(item => item !== undefined);
 
-  // Function to get color based on strike rate - simplified to green/yellow/red
-  const getColorByStrikeRate = (strikeRate) => {
-    if (!strikeRate || strikeRate === 0) return '#4B5563'; // Gray for no data
-    
-    // Simplified color scale
-    const numValue = parseFloat(strikeRate);
-    if (numValue >= 130) return '#22c55e'; // Green - High performance
-    if (numValue >= 110) return '#eab308'; // Yellow - Medium performance
-    return '#dc2626'; // Red - Low performance
-  };
-
   // Function to format values - remove decimals for Total Runs and Balls Faced
   const formatValue = (value, key) => {
     if (key === 'Total Runs' || key === 'Balls Faced') {
