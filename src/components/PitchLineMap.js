@@ -112,7 +112,7 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
             {/* On Leg Stump line - positioned lower to be in front of first stump from bottom */}
             <div 
               className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10 cursor-pointer hover:opacity-100" 
-              style={{ top: '65%' }}
+              style={{ top: '58%' }}
               onMouseEnter={() => setHoveredLine('On Leg Stump')}
               onMouseLeave={() => setHoveredLine(null)}
             ></div>
@@ -121,7 +121,7 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '13%' }}>Wide Off</div>
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '28%' }}>4th/5th</div>
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '43%' }}>M&O</div>
-            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '63%' }}>Leg</div>
+            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '56%' }}>Leg</div>
             
             {/* Hover tooltip */}
             {hoveredLine && (
