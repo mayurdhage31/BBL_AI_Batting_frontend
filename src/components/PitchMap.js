@@ -62,21 +62,35 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
           <div className="absolute left-12 top-0 bottom-0 w-1 bg-white opacity-80"></div>
           <div className="absolute right-12 top-0 bottom-0 w-1 bg-white opacity-80"></div>
           
-          {/* Length boxes container - all same size */}
-          <div className="absolute left-12 right-12 top-2 bottom-2 flex">
+          {/* Length boxes container - compressed to 60% from left */}
+          <div className="absolute left-12 top-2 bottom-2 flex" style={{ width: '60%' }}>
             {sortedData.map((item, index) => {
               const lengthName = item[dataKey];
               const value = item[valueKey];
+              const isFullToss = lengthName === 'Full Toss';
               
               return (
                 <div 
                   key={lengthName}
-                  className="flex-1 relative flex flex-col justify-center items-center text-white font-bold border-2 border-white mx-0.5"
+                  className="flex-1 relative flex flex-col justify-center items-center text-white font-bold"
                   style={{
                     backgroundColor: getBoxColor(value),
-                    opacity: 0.8
+                    opacity: 0.8,
+                    // Full Toss gets white crease lines, others get no border
+                    border: isFullToss ? '2px solid white' : 'none',
+                    // Add white lines above and below Full Toss to simulate batting crease
+                    borderTop: isFullToss ? '3px solid white' : 'none',
+                    borderBottom: isFullToss ? '3px solid white' : 'none'
                   }}
                 >
+                  {/* Additional crease lines for Full Toss */}
+                  {isFullToss && (
+                    <>
+                      <div className="absolute -top-1 left-0 right-0 h-1 bg-white"></div>
+                      <div className="absolute -bottom-1 left-0 right-0 h-1 bg-white"></div>
+                    </>
+                  )}
+                  
                   {/* Length name - rotated vertically */}
                   <div 
                     className="text-xs font-bold text-center leading-tight px-1"
@@ -93,15 +107,20 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
               );
             })}
           </div>
+          
+          {/* Right 40% area with normal pitch color (no zones) */}
+          <div className="absolute right-12 top-2 bottom-2" style={{ width: '40%', left: '60%' }}>
+            {/* This area remains empty with just the pitch background color */}
+          </div>
         </div>
         
-        {/* Values displayed above the pitch - aligned with the boxes */}
+        {/* Values displayed above the pitch - aligned with the compressed boxes */}
         <div className="flex mt-2 mx-8">
           {/* Left spacing to align with pitch lines */}
           <div style={{ width: '48px' }}></div>
           
-          {/* Values for length boxes */}
-          <div className="flex flex-1">
+          {/* Values for length boxes - only for the 60% compressed area */}
+          <div className="flex" style={{ width: '60%' }}>
             {sortedData.map((item, index) => {
               const lengthName = item[dataKey];
               const value = item[valueKey];
@@ -110,7 +129,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
               return (
                 <div 
                   key={`value-${lengthName}`}
-                  className="flex-1 text-center mx-0.5"
+                  className="flex-1 text-center"
                 >
                   <div 
                     className="text-lg font-bold"
@@ -124,6 +143,9 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
               );
             })}
           </div>
+          
+          {/* Right 40% area - no values displayed */}
+          <div style={{ width: '40%' }}></div>
           
           {/* Right spacing to align with pitch lines */}
           <div style={{ width: '48px' }}></div>
