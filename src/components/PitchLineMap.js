@@ -16,8 +16,17 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
   }
   
   // Sort data by the predefined order and filter only available lines
+  // Handle the alias mapping: "On Stumps" in data maps to "Middle & Off Stump" in display
   const sortedData = lineOrder
-    .map(line => data.find(item => item && item[dataKey] === line))
+    .map(line => {
+      // First try to find exact match
+      let item = data.find(dataItem => dataItem && dataItem[dataKey] === line);
+      // If Middle & Off Stump not found, try "On Stumps" as alias
+      if (!item && line === 'Middle & Off Stump') {
+        item = data.find(dataItem => dataItem && dataItem[dataKey] === 'On Stumps');
+      }
+      return item;
+    })
     .filter(item => item !== undefined);
 
   // Function to format values - remove decimals for Total Runs and Balls Faced
@@ -100,10 +109,10 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
               onMouseLeave={() => setHoveredLine(null)}
             ></div>
             
-            {/* On Leg Stump line - should align with stumps */}
+            {/* On Leg Stump line - positioned lower to be in front of first stump from bottom */}
             <div 
               className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10 cursor-pointer hover:opacity-100" 
-              style={{ top: '50%' }}
+              style={{ top: '65%' }}
               onMouseEnter={() => setHoveredLine('On Leg Stump')}
               onMouseLeave={() => setHoveredLine(null)}
             ></div>
@@ -112,7 +121,7 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '13%' }}>Wide Off</div>
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '28%' }}>4th/5th</div>
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '43%' }}>M&O</div>
-            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '48%' }}>Leg</div>
+            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '63%' }}>Leg</div>
             
             {/* Hover tooltip */}
             {hoveredLine && (
@@ -144,7 +153,11 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
         <div className="flex mx-8 mt-2 justify-center relative">
           <div className="flex space-x-8">
             {lineOrder.map((lineName, index) => {
-              const lineData = sortedData.find(item => item[dataKey] === lineName);
+              // Handle alias mapping for Middle & Off Stump
+              let lineData = sortedData.find(item => item[dataKey] === lineName);
+              if (!lineData && lineName === 'Middle & Off Stump') {
+                lineData = sortedData.find(item => item[dataKey] === 'On Stumps');
+              }
               const strikeRate = lineData ? lineData['Strike Rate'] : 'N/A';
               
               return (
