@@ -63,26 +63,26 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
           <div className="absolute left-12 top-0 bottom-0 w-1 bg-white opacity-80"></div>
           <div className="absolute right-12 top-0 bottom-0 w-1 bg-white opacity-80"></div>
           
-          {/* Cricket line markings - showing actual stump lines and wide lines */}
-          <div className="absolute inset-x-12 inset-y-0 flex items-center">
+          {/* Cricket line markings - showing actual bowling lines horizontally across the pitch */}
+          <div className="absolute inset-x-12 inset-y-0 flex flex-col justify-center">
             
-            {/* On Leg Stump line - rightmost stump line */}
-            <div className="absolute top-0 bottom-0 w-0.5 bg-white opacity-90 z-10" style={{ right: '45%' }}></div>
+            {/* Wide Outside Off line - topmost line */}
+            <div className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10" style={{ top: '20%' }}></div>
             
-            {/* Middle & Off Stump line - center of stumps */}
-            <div className="absolute top-0 bottom-0 w-0.5 bg-white opacity-90 z-10" style={{ right: '50%' }}></div>
+            {/* 4th/5th Stump line */}
+            <div className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10" style={{ top: '35%' }}></div>
             
-            {/* 4th/5th Stump line - just outside off stump */}
-            <div className="absolute top-0 bottom-0 w-0.5 bg-white opacity-90 z-10" style={{ right: '55%' }}></div>
+            {/* Middle & Off Stump line - center line */}
+            <div className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10" style={{ top: '50%' }}></div>
             
-            {/* Wide Outside Off line - wide line */}
-            <div className="absolute top-0 bottom-0 w-0.5 bg-white opacity-90 z-10" style={{ right: '65%' }}></div>
+            {/* On Leg Stump line - bottom line */}
+            <div className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10" style={{ top: '65%' }}></div>
             
-            {/* Line labels */}
-            <div className="absolute top-1 text-xs font-bold text-white" style={{ right: '43%' }}>Leg</div>
-            <div className="absolute top-1 text-xs font-bold text-white" style={{ right: '47%' }}>M&O</div>
-            <div className="absolute top-1 text-xs font-bold text-white" style={{ right: '52%' }}>4th/5th</div>
-            <div className="absolute top-1 text-xs font-bold text-white" style={{ right: '62%' }}>Wide Off</div>
+            {/* Line labels on the left side */}
+            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '18%' }}>Wide Off</div>
+            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '33%' }}>4th/5th</div>
+            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '48%' }}>M&O</div>
+            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '63%' }}>Leg</div>
             
           </div>
         </div>
