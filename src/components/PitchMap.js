@@ -115,7 +115,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
         </div>
         
         {/* Values displayed below the pitch - aligned with the compressed boxes */}
-        <div className="flex mx-8">
+        <div className="flex mx-8 mt-2">
           {/* Left spacing to align with pitch lines */}
           <div style={{ width: '48px' }}></div>
           
@@ -132,7 +132,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
                   className="flex-1 text-center"
                 >
                   <div 
-                    className="text-sm font-bold mt-1"
+                    className="text-lg font-bold mt-1"
                     style={{
                       color: isStrikeRate ? getStrikeRateColor(value) : '#ffffff'
                     }}
