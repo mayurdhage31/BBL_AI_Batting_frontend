@@ -139,11 +139,11 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
               onMouseLeave={() => setHoveredLine(null)}
             ></div>
             
-            {/* Line labels on the left side */}
-            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '13%' }}>Wide Off</div>
-            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '28%' }}>4th/5th</div>
-            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '43%' }}>M&O</div>
-            <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '56%' }}>Leg</div>
+            {/* Line labels positioned outside the pitch area to avoid overlap */}
+            <div className="absolute -left-12 text-xs font-bold text-white" style={{ top: '13%' }}>Wide Off</div>
+            <div className="absolute -left-12 text-xs font-bold text-white" style={{ top: '28%' }}>4th/5th</div>
+            <div className="absolute -left-8 text-xs font-bold text-white" style={{ top: '43%' }}>M&O</div>
+            <div className="absolute -left-6 text-xs font-bold text-white" style={{ top: '56%' }}>Leg</div>
       
 
             
