@@ -122,7 +122,7 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
         </div>
         
         {/* Values displayed below the pitch - aligned with the compressed boxes */}
-        <div className="flex mx-8 mt-2">
+        <div className="flex mx-8 mt-4">
           {/* Left spacing to align with pitch lines */}
           <div style={{ width: '48px' }}></div>
           
@@ -136,10 +136,14 @@ const PitchMap = ({ data, dataKey, valueKey }) => {
               return (
                 <div 
                   key={`value-${lengthName}`}
-                  className="flex-1 text-center"
+                  className="flex-1 flex flex-col items-center justify-center px-1"
                 >
+                  {/* Length name label for better alignment */}
+                  <div className="text-xs font-medium text-gray-400 mb-1 text-center">
+                    {lengthName}
+                  </div>
                   <div 
-                    className="text-lg font-bold mt-1"
+                    className="text-lg font-bold"
                     style={{
                       color: isStrikeRate ? getStrikeRateColor(value) : '#ffffff'
                     }}

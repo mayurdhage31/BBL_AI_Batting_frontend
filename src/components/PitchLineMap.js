@@ -45,6 +45,22 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
     return '#dc2626'; // Red - Low performance
   };
 
+  // Function to get line color based on strike rate for that specific line
+  const getLineColor = (lineName) => {
+    const lineData = sortedData.find(item => item[dataKey] === lineName);
+    if (!lineData && lineName === 'Middle & Off Stump') {
+      // Handle alias mapping
+      const aliasData = sortedData.find(item => item[dataKey] === 'On Stumps');
+      if (aliasData) {
+        return getStrikeRateColor(aliasData['Strike Rate']);
+      }
+    }
+    if (lineData) {
+      return getStrikeRateColor(lineData['Strike Rate']);
+    }
+    return '#ffffff'; // Default white if no data
+  };
+
   return (
     <div className="mt-6">
       {/* Cricket pitch visualization for lines */}
@@ -81,32 +97,44 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
             
             {/* Wide Outside Off line - topmost line */}
             <div 
-              className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10 cursor-pointer hover:opacity-100" 
-              style={{ top: '15%' }}
+              className="absolute left-0 right-0 h-1.5 opacity-90 z-10 cursor-pointer hover:opacity-100 rounded-sm" 
+              style={{ 
+                top: '15%',
+                backgroundColor: getLineColor('Wide Outside Off')
+              }}
               onMouseEnter={() => setHoveredLine('Wide Outside Off')}
               onMouseLeave={() => setHoveredLine(null)}
             ></div>
             
-            {/* 4th/5th Stump line */}
+            {/* 4th/5th Stump line - second line from top */}
             <div 
-              className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10 cursor-pointer hover:opacity-100" 
-              style={{ top: '30%' }}
+              className="absolute left-0 right-0 h-1.5 opacity-90 z-10 cursor-pointer hover:opacity-100 rounded-sm" 
+              style={{ 
+                top: '30%',
+                backgroundColor: getLineColor('4th/5th Stump')
+              }}
               onMouseEnter={() => setHoveredLine('4th/5th Stump')}
               onMouseLeave={() => setHoveredLine(null)}
             ></div>
             
-            {/* Middle & Off Stump line - center line */}
+            {/* Middle & Off Stump line - third line from top */}
             <div 
-              className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10 cursor-pointer hover:opacity-100" 
-              style={{ top: '45%' }}
+              className="absolute left-0 right-0 h-1.5 opacity-90 z-10 cursor-pointer hover:opacity-100 rounded-sm" 
+              style={{ 
+                top: '45%',
+                backgroundColor: getLineColor('Middle & Off Stump')
+              }}
               onMouseEnter={() => setHoveredLine('Middle & Off Stump')}
               onMouseLeave={() => setHoveredLine(null)}
             ></div>
             
             {/* On Leg Stump line - positioned lower to be in front of first stump from bottom */}
             <div 
-              className="absolute left-0 right-0 h-0.5 bg-white opacity-90 z-10 cursor-pointer hover:opacity-100" 
-              style={{ top: '58%' }}
+              className="absolute left-0 right-0 h-1.5 opacity-90 z-10 cursor-pointer hover:opacity-100 rounded-sm" 
+              style={{ 
+                top: '58%',
+                backgroundColor: getLineColor('On Leg Stump')
+              }}
               onMouseEnter={() => setHoveredLine('On Leg Stump')}
               onMouseLeave={() => setHoveredLine(null)}
             ></div>
