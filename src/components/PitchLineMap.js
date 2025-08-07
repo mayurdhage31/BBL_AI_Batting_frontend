@@ -140,11 +140,10 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
             ></div>
             
             {/* Line labels positioned below each line */}
-            <div className="absolute text-xs font-bold text-white text-center" style={{ top: '23%', left: '10%', right: '10%' }}>Wide Off</div>
-            <div className="absolute text-xs font-bold text-white text-center" style={{ top: '38%', left: '10%', right: '10%' }}>4th/5th</div>
-            <div className="absolute text-xs font-bold text-white text-center" style={{ top: '53%', left: '10%', right: '10%' }}>M&O</div>
-            <div className="absolute text-xs font-bold text-white text-center" style={{ top: '68%', left: '10%', right: '10%' }}>Leg</div>
-      
+            <div className="absolute text-[10px] font-medium text-white text-center" style={{ top: '20%', left: '10%', right: '10%' }}>Wide Off</div>
+            <div className="absolute text-[10px] font-medium text-white text-center" style={{ top: '34%', left: '10%', right: '10%' }}>4th/5th</div>
+            <div className="absolute text-[10px] font-medium text-white text-center" style={{ top: '48%', left: '10%', right: '10%' }}>M&O</div>
+            <div className="absolute text-[10px] font-medium text-white text-center" style={{ top: '61%', left: '10%', right: '10%' }}>Leg</div>
 
             
             {/* Hover tooltip */}
