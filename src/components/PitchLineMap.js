@@ -116,7 +116,7 @@ const PitchLineMap = ({ data, dataKey, valueKey }) => {
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '28%' }}>4th/5th</div>
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '43%' }}>M&O</div>
             <div className="absolute left-1 text-xs font-bold text-white" style={{ top: '56%' }}>Leg</div>
-            
+      
 
             
             {/* Hover tooltip */}
